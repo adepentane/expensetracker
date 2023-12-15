@@ -89,3 +89,25 @@ def addmoney_submission(request):
             add.save()
             return redirect('index')
     return redirect('index')
+
+
+def expense_edit(request, id):
+    if request.user.is_authenticated:
+        try:
+            addmoney_info = Addmoney_info.objects.get(id=id)
+            user_id = request.user.id
+            user = User.objects.get(id=user_id)
+            return render(request, 'home/expense_edit.html', {'addmoney_info': addmoney_info})
+        except Addmoney_info.DoesNotExist:
+            pass  # Handle if expense with given ID doesn't exist
+    return redirect('home')  # Redirect to home if not logged in or expense not found
+
+
+def expense_delete(request, id):
+    if request.user.is_authenticated:
+        try:
+            addmoney_info = Addmoney_info.objects.get(id=id)
+            addmoney_info.delete()
+        except Addmoney_info.DoesNotExist:
+            pass  # Handle if expense with given ID doesn't exist
+    return redirect('index')  # Redirect to index after deleting expense or if not logged in
