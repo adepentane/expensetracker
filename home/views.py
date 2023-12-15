@@ -37,24 +37,24 @@ def index(request):
 
 
 # if request.session.has_key('is_logged'):
-        return render(request, 'home/index.html',context)
+        return render(request, 'home/index.html', context)
     return redirect('home')
 
 
 def addmoney(request):
-    return render(request,'home/addmoney.html')
+    return render(request, 'home/addmoney.html')
 
 
 def profile(request):
     if request.session.has_key('is_logged'):
-        return render(request,'home/profile.html')
+        return render(request, 'home/profile.html')
     return redirect('/home')
 
 
-def profile_edit(request,id):
+def profile_edit(request, id):
     if request.session.has_key('is_logged'):
         add = User.objects.get(id=id)
-        return render(request,'home/profile_edit.html',{'add':add})
+        return render(request, 'home/profile_edit.html', {'add':add})
     return redirect("/home")
 
 # Updating Profiles
@@ -88,7 +88,7 @@ def handleSignup(request):
         pass1 = request.POST["pass1"]
         pass2 = request.POST["pass2"]
         profile = UserProfile(Savings =
-        Savings,profession=profession,income=income)
+        Savings,profession=profession, income=income)
         # check for errors in input
         if request.method == 'POST':
             try:
