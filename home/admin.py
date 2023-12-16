@@ -1,16 +1,14 @@
 from django.contrib import admin
+from django.contrib.sessions.models import Session
+from .models import AddmoneyInfo, UserProfile
 
 # Register your models here.
-from .models import Addmoney_info
-
-
-class Addmoney_infoAdmin(admin.ModelAdmin):
+@admin.register(AddmoneyInfo)
+class AddmoneyInfoAdmin(admin.ModelAdmin):
     list_display = ("user", "quantity", "Date", "Category", "add_money")
 
-admin.site.register(Addmoney_info, Addmoney_infoAdmin)
+@admin.register(UserProfile)
+class UserProfileAdmin(admin.ModelAdmin):
+    list_display = ("user", "profession", "Savings", "income")
 
-from django.contrib.sessions.models import Session
-
-admin.site.register(Session)
-from .models import UserProfile
-admin.site.register(UserProfile)
+admin.site.register(Session)  # Registering Session model
