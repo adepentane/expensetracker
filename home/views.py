@@ -1,4 +1,4 @@
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import authenticate, login as dj_login, logout
 from django.contrib import messages
 from django.http import JsonResponse, HttpResponse
@@ -7,6 +7,8 @@ from django.contrib.auth.models import User
 from django.core.paginator import Paginator
 from .models import AddmoneyInfo, UserProfile
 import datetime
+from django.contrib.auth import login as django_login
+from django.shortcuts import render, redirect
 
 
 # Other views as they were...
@@ -20,6 +22,18 @@ def register(request):
     else:
         form = UserCreationForm()
     return render(request, 'home/register.html', {'form': form})
+
+
+def login(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(request, request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            django_login(request, user)
+            return redirect('index')  # Replace 'index' with your actual index page name
+    else:
+        form = AuthenticationForm()
+    return render(request, 'home/login.html', {'form': form})
 
 
 def home(request):
@@ -72,18 +86,6 @@ def profile_update(request, id):
             user.save()
             return redirect('profile')
     return redirect('home')
-
-
-def handleSignup(request):
-    if request.method == 'POST':
-        # handle signup logic
-        return redirect('login')
-
-
-def handlelogin(request):
-    if request.method == 'POST':
-        # handle login logic
-        return redirect('index')
 
 
 def handleLogout(request):
@@ -162,9 +164,11 @@ def tables(request):
     # Your logic for the tables view here
     return HttpResponse("Tables view")
 
+
 def weekly(request):
     # Your view logic here
     return HttpResponse("Weekly view")
+
 
 def check(request):
     # Your view logic here

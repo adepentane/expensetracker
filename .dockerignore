@@ -1,0 +1,5 @@
+# Exclude common unwanted files/directories
+.git
+.myenv
+.vscode
+*.pyc
