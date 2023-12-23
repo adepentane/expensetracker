@@ -67,6 +67,6 @@ jobs:
         uses: azure/webapps-deploy@v2
         id: deploy-to-webapp
         with:
-          app-name: 'expenseapp1'
+          app-name: 'expensea'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_FE46D6A6DC4B45DDB91D349DA20ECE50 }}
