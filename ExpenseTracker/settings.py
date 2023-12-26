@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'home',
-    'azure_content.apps.AzureContentConfig',
+    # 'azure_content.apps.AzureContentConfig',
 ]
 
 MIDDLEWARE = [
